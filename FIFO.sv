@@ -20,6 +20,7 @@ always @(posedge clk or negedge rst_n) begin
 		mem[wr_ptr] <= data_in;
 		wr_ack <= 1;
 		wr_ptr <= wr_ptr + 1;
+		overflow <= 0;
 	end
 	else begin 
 		wr_ack <= 0; 
@@ -38,6 +39,7 @@ always @(posedge clk or negedge rst_n) begin
 	else if (rd_en && count != 0) begin
 		data_out <= mem[rd_ptr];
 		rd_ptr <= rd_ptr + 1;
+		underflow <= 0;
 	end
 	else begin
 		if(empty & rd_en) begin
